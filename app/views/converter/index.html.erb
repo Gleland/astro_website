@@ -1,0 +1,10 @@
+<h1> RA and Dec converter</h1>
+
+
+<h2> Paste your data here:</h2>
+<%= form_for 'converter' do |f| %>
+  <%= form_tag "submit", :id => "converter_form" do -%>
+  <%= text_area("form", :body, cols: 60, rows: 40) %>
+  <%= submit_tag "Submit" %>
+  <% end -%>
+<% end %>
