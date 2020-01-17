@@ -6,7 +6,7 @@
 
 ### Angle Converter
 
-Started by a conversation with Kathryn, where she wanted to paste a lot ( a few hundred) RA and DEC values for potential targets during an observation run. Sometimes publications (and telescope control UIs) will reference star locations in the [Sexagesimal](https://en.wikipedia.org/wiki/Sexagesimal) format (Hours, Minutes, Seconds for Right Ascension, and Degress, Minutes, Seconds for Declination), while others will use [Decimal Degrees](https://en.wikipedia.org/wiki/Decimal_degrees). In this case, she had a lot of HMS values to convert to DMS, and wanted to dump them into a websiet and paste the results somewhere else.
+Started by a conversation with Kathryn, where she wanted to paste a lot ( a few hundred) RA and DEC values for potential targets during an observation run. Sometimes publications (and telescope control UIs) will reference star locations in the [Sexagesimal](https://en.wikipedia.org/wiki/Sexagesimal) format (Hours, Minutes, Seconds for Right Ascension, and Degress, Minutes, Seconds for Declination), while others will use [Decimal Degrees](https://en.wikipedia.org/wiki/Decimal_degrees). In this case, she had a lot of HMS values to convert to DMS, and wanted to dump them into a website and paste the results somewhere else.
 
 
 
