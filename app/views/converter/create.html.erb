@@ -1,16 +1,15 @@
 <h1> RA and Dec converter</h1>
 
-
 <h2> Results:</h2>
 <table style="width:15%">
   <tr>
     <th>RA</th>
     <th>Dec</th> 
   </tr>
-<% @answers.each do |answer| %>
-  <tr>
-  <th><%= sprintf('%.10f' , answer[0]) %></th>
-  <th><%= sprintf('%.10f' , answer[1]) %></th>
-  </tr>
-<% end %>
+  <% @answers.each do |ra,dec| %>
+    <tr>
+      <th><%= ra %></th>
+      <th><%= dec %></th>
+    </tr>
+  <% end %>
 </table>
