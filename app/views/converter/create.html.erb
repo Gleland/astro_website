@@ -6,10 +6,11 @@
     <th>RA</th>
     <th>Dec</th> 
   </tr>
-  <% @answers.each do |ra,dec| %>
+  <% @answers.each do |array| %>
     <tr>
-      <th><%= ra %></th>
-      <th><%= dec %></th>
+      <% array.each do |element| %>
+          <th><%= element %></th>
+      <% end %>
     </tr>
   <% end %>
 </table>
