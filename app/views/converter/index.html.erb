@@ -3,8 +3,17 @@
 
 <h2> Paste your data here:</h2>
 <%= form_for 'converter' do |f| %>
-  <%= form_tag "submit", :id => "converter_form" do -%>
-  <%= text_area("form", :body, cols: 60, rows: 40) %>
+  <div class="form_row">
+    <p> My input data are:
+      <% ['Sexigesimal', 'Decimal'].each do |data| %>
+        <%= radio_button_tag 'data', data, @data == data %>
+        <%= label_tag "data", data.humanize %>
+      <% end %>
+    </p>
+  </div>
+  <%= form_tag "submit", :id => "form" do -%>
+  <%= text_area("form", :body, cols: 80, rows: 20) %>
+  <br>
   <%= submit_tag "Submit" %>
   <% end -%>
 <% end %>
