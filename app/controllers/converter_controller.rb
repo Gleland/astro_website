@@ -3,17 +3,17 @@ class ConverterController < ApplicationController
     end
 
     def create
-        input_to_format = {"Decimal" => "convert_to_sexigesimal", "Sexigesimal" => "convert_to_decimal"}
+        input_to_format = {"Decimal" => "convert_to_sexagesimal", "Sexigesimal" => "convert_to_decimal"}
         @answers = []
         send(input_to_format[params[:data]])
     end
 
   private
 
-  def convert_to_sexigesimal
+  def convert_to_sexagesimal
     params[:form][:body].split("\n").each do |line|
         ra, dec = line.split(" ")
-        @answers << to_sexigesimal(ra, dec)
+        @answers << to_sexagesimal(ra, dec)
     end
   end
 
@@ -27,23 +27,30 @@ class ConverterController < ApplicationController
     end
   end
 
+  def to_sexagesimal(raDec, decDec)
+      raH, raM, raS = calc_ra_hms(raDec.to_f)
+      decH, decM, decS = calc_dec_hms(decDec.to_f)
+      return [raH, raM, raS, "#{decH > 0 ? "+" : "-"}#{decH}", decM, decS]
+  end
+
   def to_decimal(raH, raM, raS, decD, decM, decS)
-      raDD = (raH) * 15 + (raM/4 + raS/240)
-      decDD = (decD.abs + decM/60 + decS/3600 ) * (decD >= 0 ? 1.0 : -1.0)
+    raDD = (raH) * 15.0 + (raM/4.0 + raS/240.0)
+    decDD = (decD.abs + decM/60 + decS/3600 ) * (decD >= 0 ? 1.0 : -1.0)
     return raDD, decDD
   end
 
+  def calc_ra_hms(ra_deg)
+    hour = (ra_deg/ 15.0).floor
+    hour_diff = (ra_deg/15.0) - hour
+    minute = (hour_diff * 60.0).floor
+    second = ((hour_diff * 60.0) - minute) * 60.0
+    return hour, minute, second
+  end
 
-  def to_sexigesimal(raDec, decDec)
-      numbs = raDec.split('.')
-      raH = numbs[0].to_f
-      raM = numbs[1].to_f / 60.0
-      raS = numbs[1].to_f / 3600.0
-
-      numbs = decDec.split('.')
-      decD = numbs[0].to_f
-      decM = numbs[1].to_f / 60.0
-      decS = numbs[1].to_f / 3600.0
-      return "#{raH}:#{raM}:#{raS} #{decD > 0 ? "+" : "-"}#{decD}:#{decM}:#{decS}"
+  def calc_dec_hms(dec_deg)
+    hour = dec_deg.floor
+    minute = ((dec_deg - hour) * 60.0).floor
+    second = (((dec_deg - hour) * 60.0).abs - minute) * 60.0
+    return hour, minute, second
   end
 end
