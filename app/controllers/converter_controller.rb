@@ -3,7 +3,7 @@ class ConverterController < ApplicationController
     end
 
     def create
-        input_to_format = {"Decimal" => "convert_to_sexagesimal", "Sexigesimal" => "convert_to_decimal"}
+        input_to_format = {"Decimal" => "convert_to_sexagesimal", "Sexagesimal" => "convert_to_decimal"}
         @answers = []
         send(input_to_format[params[:data]])
     end
@@ -22,15 +22,15 @@ class ConverterController < ApplicationController
         sign_char = line.include?("+") ? "+" : "-" 
         ra, dec = line.split(sign_char)
         raH, raM, raS = ra.split(" ")
-        decD, decM, decS = dec.split(" ")
-        @answers << to_decimal(raH.to_f, raM.to_f, raS.to_f, (sign_char + decD).to_f, decM.to_f, decS.to_f)
+        decH, decM, decS = dec.split(" ")
+        @answers << to_decimal(raH.to_f, raM.to_f, raS.to_f, (sign_char + decH).to_f, decM.to_f, decS.to_f)
     end
   end
 
   def to_sexagesimal(raDec, decDec)
       raH, raM, raS = calc_ra_hms(raDec.to_f)
       decH, decM, decS = calc_dec_hms(decDec.to_f)
-      return [raH, raM, raS, "#{decH > 0 ? "+" : "-"}#{decH}", decM, decS]
+      return [raH, raM, raS, decH, decM, decS]
   end
 
   def to_decimal(raH, raM, raS, decD, decM, decS)
@@ -43,14 +43,15 @@ class ConverterController < ApplicationController
     hour = (ra_deg/ 15.0).floor
     hour_diff = (ra_deg/15.0) - hour
     minute = (hour_diff * 60.0).floor
-    second = ((hour_diff * 60.0) - minute) * 60.0
+    second = (((hour_diff * 60.0) - minute) * 60.0).round(2)
     return hour, minute, second
   end
 
   def calc_dec_hms(dec_deg)
-    hour = dec_deg.floor
-    minute = ((dec_deg - hour) * 60.0).floor
-    second = (((dec_deg - hour) * 60.0).abs - minute) * 60.0
+    is_positive = dec_deg > 0 ? true : false
+    hour = dec_deg.abs.floor * (is_positive ? 1 : -1)
+    minute = ((dec_deg.abs - hour.abs) * 60.0).floor
+    second = ((((dec_deg.abs - hour.abs) * 60.0).abs - minute) * 60.0).round(1)
     return hour, minute, second
   end
 end

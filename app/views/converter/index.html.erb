@@ -5,7 +5,7 @@
 <%= form_for 'converter' do |f| %>
   <div class="form_row">
     <p> My input data are:
-      <% ['Sexigesimal', 'Decimal'].each do |data| %>
+      <% ['Sexagesimal', 'Decimal'].each do |data| %>
         <%= radio_button_tag 'data', data, @data == data %>
         <%= label_tag "data", data.humanize %>
       <% end %>
