@@ -33,7 +33,7 @@ gem "websocket-extensions", ">= 0.1.5"
 # gem 'mini_magick', '~> 4.8'
 
 gem 'activestorage', '>= 5.2.4.3'
-gem 'actionpack', '>= 5.2.4.3'
+gem "actionpack", ">= 5.2.4.6"
 gem 'activesupport', '>= 5.2.4.3'
 
 # Reduces boot times through caching; required in config/boot.rb
